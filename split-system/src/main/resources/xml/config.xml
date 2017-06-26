@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:util="http://www.springframework.org/schema/util"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+    
+    <!-- spring自动装载properties文件 -->
+	<bean id="placeholderConfig" class="com.xifeng.common.util.PropertiesUtil" init-method="init">
+		<property name="systemPropertiesMode" value="1"/>
+		<property name="fileEncoding" value="UTF-8"/>
+		<property name="configList" ref="configList"/>
+	</bean>
+	
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	    <!-- 国际化信息所在的文件名 -->                     
+	    <property name="basenames" ref="langList" />   
+	    <!-- 如果在国际化资源文件中找不到对应代码的信息，就用这个代码作为名称  -->               
+	    <property name="useCodeAsDefaultMessage" value="true" />           
+	</bean>
+    
+    <!-- 配置文件列表 -->
+	<util:list id="configList" value-type="java.lang.String">
+	    <value>/conf.properties</value>
+	    <value>/datasource_mycat.properties</value>
+	</util:list>
+	
+	<!-- 语言包列表 classpath -->
+	<util:list id="langList" value-type="java.lang.String">	   
+	 	<value>xml/lang/common</value> 
+    </util:list>
+    
+    <!--  校验配置文件列表  -->
+    <util:list id="validationList" value-type="java.lang.String">
+	    
+    </util:list>
+</beans>
